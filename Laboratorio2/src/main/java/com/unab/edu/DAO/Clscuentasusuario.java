@@ -18,10 +18,26 @@ import javax.swing.JOptionPane;
  * @author Stanly
  */
 public class Clscuentasusuario {
-   Conexion cn = new Conexion();
-   Connection con = cn.RetornoConexion();
-   
-   public ArrayList<cuentasusuario> Transacciones() {
+
+    Conexion cn = new Conexion();
+    Connection con = cn.RetornoConexion();
+
+    public void agregarTransaccion(cuentasusuario transaccion) {
+        try {
+            CallableStatement statement = con.prepareCall("call sp_i_transaccion(?,?,?,?);");
+            statement.setDouble("pSaldo", transaccion.getSaldo());
+            statement.setInt("pIdUsuario", transaccion.getIdUsuario());
+            statement.setInt("pTransaccion", transaccion.getTransaccion());
+            statement.setDate("pFecha", new java.sql.Date(transaccion.getFecha().getTime()));
+            statement.execute();
+            con.close();
+            JOptionPane.showMessageDialog(null, "Retiro realizado!" );
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al Retirar" + e);
+        }
+    }
+
+    public ArrayList<cuentasusuario> Transacciones() {
         var listado = new ArrayList<cuentasusuario>();
         try {
             CallableStatement statement = con.prepareCall("SELECT * FROM appbanco.cuentasusuario;");

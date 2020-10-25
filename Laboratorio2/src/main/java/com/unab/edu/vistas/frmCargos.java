@@ -6,6 +6,11 @@
 package com.unab.edu.vistas;
 
 import com.unab.edu.DAO.Clscuentasusuario;
+import com.unab.edu.Entidades.cuentasusuario;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Set;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,31 +24,41 @@ public class frmCargos extends javax.swing.JFrame {
      */
     //Variable que debe venir del formulario de Login
     int idUsuario;
+    double saldo = 0;
+
     public frmCargos() {
         initComponents();
-        idUsuario=1;
+        idUsuario = 2;
         MostrarTransacciones();
         setLocationRelativeTo(this);
     }
-     void MostrarTransacciones() {
+
+    void MostrarTransacciones() {
         String TITULOS[] = {"SALDO", "TRANSACCIÓN", "FECHA"};
         DefaultTableModel modeloTabla = new DefaultTableModel(null, TITULOS);
         Clscuentasusuario transacciones = new Clscuentasusuario();
         var listado = transacciones.Transacciones();
         String filas[] = new String[3];
+        double abonos = 0;
+        double cargos = 0;
         for (var iterarDatos : listado) {
             filas[0] = String.valueOf(iterarDatos.getSaldo());
-            if(iterarDatos.getTransaccion()==1){
+            if (iterarDatos.getTransaccion() == 1) {
                 filas[1] = "Abono";
-            }else{
+                abonos += iterarDatos.getSaldo();
+            } else {
                 filas[1] = "Cargo";
+                cargos += iterarDatos.getSaldo();
             }
             filas[2] = String.valueOf(iterarDatos.getFecha());
             //Agregar a la fila
             modeloTabla.addRow(filas);
         }
+        saldo = abonos - cargos;
         tbTransacciones.setModel(modeloTabla);
+        txtSaldo.setText(String.valueOf(saldo));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,6 +88,11 @@ public class frmCargos extends javax.swing.JFrame {
 
         btnRetirar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnRetirar.setText("Retirar Dinero");
+        btnRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetirarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel2.setText("Saldo Disponible:");
@@ -175,6 +195,47 @@ public class frmCargos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
+        // TODO add your handling code here:
+        boolean esNumero;
+        double retiro = 0;
+        Clscuentasusuario transaccionDao = new Clscuentasusuario();
+        cuentasusuario transaccion = new cuentasusuario();
+        try {
+            retiro = Double.parseDouble(txtRetiro.getText());
+            esNumero = true;
+        } catch (Exception e) {
+            esNumero = false;
+        }
+        Date date = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
+        transaccion.setFecha(date);
+        //Primera implementacion de Fecha
+//        System.out.println(formato.format(date));
+        //Validar si lo ingresado son numeros
+        if (txtRetiro.getText() != "" && retiro != 0) {
+            //Validar que sea divisible entre 5
+            if (retiro % 5 == 0) {
+                //validad si tiene saldo disponible
+                if (retiro <= saldo) {
+                    transaccion.setSaldo(retiro);
+                    transaccion.setIdUsuario(idUsuario);
+                    transaccion.setTransaccion(2);
+                    transaccionDao.agregarTransaccion(transaccion);
+                    MostrarTransacciones();
+                    txtRetiro.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se puede retirar más");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Solo se permiten cantidades divisibles entre 5, ej:5, 10, 15...");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese cantidades válidas");
+        }
+
+    }//GEN-LAST:event_btnRetirarActionPerformed
 
     /**
      * @param args the command line arguments
