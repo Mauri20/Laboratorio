@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.unab.edu.entidades;
+package com.unab.edu.Entidades;
 
-import java.sql.Date;
+import java.util.Date;
 import lombok.Data;
 
 /**
  *
- * @author Elmer Cardoza
+ * @author Stanly
  */
 @Data
-public class Cuentasusuario {
+public class cuentasusuario {
+    
     private int idcuentasusuario;
     private double saldo;
     private int idUsuario;
     private int transaccion;
     private Date fecha;
+    
 }

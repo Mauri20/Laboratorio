@@ -6,7 +6,7 @@
 package com.unab.edu.vistas;
 
 import com.unab.edu.DAO.ClsUsuario;
-import com.unab.edu.entidades.Usuario;
+import com.unab.edu.entidades.usuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,7 +21,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-    Usuario user = new Usuario();
+    usuario user = new usuario();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,7 +119,7 @@ public class Login extends javax.swing.JFrame {
                 ClsUsuario est = new ClsUsuario();
                 var listado = est.LoguinUsuario(user, pass, tipo);
                 try {
-                    Usuario usu = new Usuario();
+                    usuario usu = new usuario();
                     for (var iterar : listado) {
                         usu.setUsuario(iterar.getUsuario());
                         usu.setPass(iterar.getPass());
