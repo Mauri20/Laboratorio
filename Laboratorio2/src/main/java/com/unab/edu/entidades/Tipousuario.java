@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.unab.edu.Entidades;
+package com.unab.edu.entidades;
 
 import lombok.Data;
 
 /**
  *
- * @author Stanly
+ * @author Elmer Cardoza
  */
 @Data
-public class tipousuario {
+public class Tipousuario {
     private int Id;
     private String TipoUser;
-    
 }
