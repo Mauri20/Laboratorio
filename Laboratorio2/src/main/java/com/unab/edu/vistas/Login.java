@@ -5,6 +5,10 @@
  */
 package com.unab.edu.vistas;
 
+import com.unab.edu.DAO.ClsUsuario;
+import com.unab.edu.entidades.Usuario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mauricio
@@ -17,6 +21,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
+    Usuario user = new Usuario();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +32,118 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Botones = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
+        opcAdmin = new javax.swing.JRadioButton();
+        opcUser = new javax.swing.JRadioButton();
+        btnIniciar = new javax.swing.JButton();
+        txtPass = new javax.swing.JPasswordField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Usuario");
+
+        jLabel2.setText("Contraseña");
+
+        Botones.add(opcAdmin);
+        opcAdmin.setText("Administrador");
+
+        Botones.add(opcUser);
+        opcUser.setText("Usuario");
+
+        btnIniciar.setText("Iniciar");
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(txtUser)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(opcUser)
+                    .addComponent(opcAdmin)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnIniciar)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel2)
+                .addGap(15, 15, 15)
+                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(opcAdmin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(opcUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnIniciar)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        // TODO add your handling code here:
+        String user = txtUser.getText();
+        String pass = txtPass.getText();
+        int tipo = 0;
+        if (!user.isEmpty() && !pass.isEmpty()) {
+            if (opcUser.isSelected()) {
+                tipo = 2;
+            } else if (opcAdmin.isSelected()) {
+                tipo = 1;
+            }
+            if (tipo != 0) {
+                ClsUsuario est = new ClsUsuario();
+                var listado = est.LoguinUsuario(user, pass, tipo);
+                try {
+                    Usuario usu = new Usuario();
+                    for (var iterar : listado) {
+                        usu.setUsuario(iterar.getUsuario());
+                        usu.setPass(iterar.getPass());
+                        usu.setTipoUsuario(iterar.getTipoUsuario());
+                    }
+                    JOptionPane.showMessageDialog(null, "Welcome " + usu.getUsuario());
+                    if (usu.getTipoUsuario() == 1) {
+                        //abrimos el form de Oscar
+                    } else {
+                        //abrimos el form de Mauricio
+                    }
+
+                } catch (Exception e) {
+                    // JOptionPane.showMessageDialog(null, "Ocurrió un error al traer el Usuario");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "llena los campos");
+            }
+        } else {
+
+            JOptionPane.showMessageDialog(null, "llena los campos");
+        }
+    }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +181,13 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup Botones;
+    private javax.swing.JButton btnIniciar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JRadioButton opcAdmin;
+    private javax.swing.JRadioButton opcUser;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
