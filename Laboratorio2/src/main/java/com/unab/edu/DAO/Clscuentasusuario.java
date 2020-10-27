@@ -6,6 +6,7 @@
 package com.unab.edu.DAO;
 
 import com.unab.edu.Entidades.cuentasusuario;
+import com.unab.edu.Entidades.usuario;
 import com.unab.edu.conexionmysql.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -37,10 +38,10 @@ public class Clscuentasusuario {
         }
     }
 
-    public ArrayList<cuentasusuario> Transacciones() {
+    public ArrayList<cuentasusuario> Transacciones(usuario user) {
         var listado = new ArrayList<cuentasusuario>();
         try {
-            CallableStatement statement = con.prepareCall("SELECT * FROM appbanco.cuentasusuario;");
+            CallableStatement statement = con.prepareCall("SELECT * FROM appbanco.cuentasusuario where idUsuario="+user.getIdUsuario()+";");
             ResultSet res = statement.executeQuery();
             while (res.next()) {
                 cuentasusuario transaccion = new cuentasusuario();

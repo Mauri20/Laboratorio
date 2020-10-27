@@ -18,9 +18,10 @@ import javax.swing.JOptionPane;
  * @author Mauricio
  */
 public class ClsUsuario {
+
     Conexion cn = new Conexion();
     Connection con = cn.RetornoConexion();
-    
+
     public ArrayList<usuario> TraerUsuarios() {
         var listado = new ArrayList<usuario>();
         try {
@@ -41,4 +42,25 @@ public class ClsUsuario {
 
         return listado;
     }
+
+    public usuario Login(usuario user) {
+        usuario usu = new usuario();
+        try {
+            CallableStatement statement = con.prepareCall("call sp_s_Login(?,?,?);");
+            statement.setString("pUsuario", user.getUsuario());
+            statement.setString("pPass", user.getPassWord());
+            statement.setInt("pTipo", user.getTipoUsuario());
+            ResultSet res = statement.executeQuery();
+            while (res.next()) {
+                usu.setIdUsuario(res.getInt("idUsuario"));
+                usu.setUsuario(res.getString("Usuario"));
+                usu.setPassWord(res.getString("PassWord"));
+                usu.setTipoUsuario(res.getInt("tipoUsuario"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se encontró el usuario" + e);
+        }
+        return usu;
+    }
+
 }

@@ -7,7 +7,9 @@ com\unab\edu\vistas\Login.class
 com\unab\edu\Entidades\usuario.class
 com\unab\edu\vistas\frmAbonos.class
 com\unab\edu\vistas\frmAbonos$2.class
+com\unab\edu\vistas\Login$2.class
 com\unab\edu\vistas\frmCargos.class
+com\unab\edu\DAO\ClsUsuario.class
 com\unab\edu\vistas\Login$1.class
 com\unab\edu\vistas\frmCargos$1.class
 com\unab\edu\Entidades\tipousuario.class

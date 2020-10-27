@@ -7,6 +7,7 @@ package com.unab.edu.vistas;
 
 import com.unab.edu.DAO.Clscuentasusuario;
 import com.unab.edu.Entidades.cuentasusuario;
+import com.unab.edu.Entidades.usuario;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
@@ -23,12 +24,13 @@ public class frmCargos extends javax.swing.JFrame {
      * Creates new form frmCargos
      */
     //Variable que debe venir del formulario de Login
-    int idUsuario;
     double saldo = 0;
-
+    usuario user;
     public frmCargos() {
         initComponents();
-        idUsuario = 2;
+        //idUsuario = 2;
+        user=Login.usua;
+        txtUsuario.setText(user.getUsuario());
         MostrarTransacciones();
         setLocationRelativeTo(this);
     }
@@ -37,7 +39,7 @@ public class frmCargos extends javax.swing.JFrame {
         String TITULOS[] = {"SALDO", "TRANSACCIÓN", "FECHA"};
         DefaultTableModel modeloTabla = new DefaultTableModel(null, TITULOS);
         Clscuentasusuario transacciones = new Clscuentasusuario();
-        var listado = transacciones.Transacciones();
+        var listado = transacciones.Transacciones(user);
         String filas[] = new String[3];
         double abonos = 0;
         double cargos = 0;
@@ -220,7 +222,7 @@ public class frmCargos extends javax.swing.JFrame {
                 //validad si tiene saldo disponible
                 if (retiro <= saldo) {
                     transaccion.setSaldo(retiro);
-                    transaccion.setIdUsuario(idUsuario);
+                    transaccion.setIdUsuario(user.getIdUsuario());
                     transaccion.setTransaccion(2);
                     transaccionDao.agregarTransaccion(transaccion);
                     MostrarTransacciones();

@@ -5,12 +5,16 @@
  */
 package com.unab.edu.vistas;
 
+import com.unab.edu.DAO.ClsUsuario;
+import com.unab.edu.Entidades.usuario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mauricio
  */
 public class Login extends javax.swing.JFrame {
-
+    public static usuario usua; 
     /**
      * Creates new form Login
      */
@@ -32,12 +36,12 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        txtPass = new javax.swing.JPasswordField();
+        opcAdmin = new javax.swing.JRadioButton();
+        opcUsuario = new javax.swing.JRadioButton();
+        btnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio de Sesión");
@@ -51,29 +55,34 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Usuario:");
 
-        jTextField1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Contraseña:");
 
-        jPasswordField1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        txtPass.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
-        jRadioButton1.setBackground(new java.awt.Color(0, 102, 102));
-        Botones.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setText("Admin");
+        opcAdmin.setBackground(new java.awt.Color(0, 102, 102));
+        Botones.add(opcAdmin);
+        opcAdmin.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        opcAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        opcAdmin.setText("Admin");
 
-        jRadioButton2.setBackground(new java.awt.Color(0, 102, 102));
-        Botones.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("Usuario");
+        opcUsuario.setBackground(new java.awt.Color(0, 102, 102));
+        Botones.add(opcUsuario);
+        opcUsuario.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        opcUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        opcUsuario.setText("Usuario");
 
-        jButton1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/entrar_1.png"))); // NOI18N
-        jButton1.setText("Ingresar");
+        btnIngresar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/entrar_1.png"))); // NOI18N
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,17 +98,17 @@ public class Login extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
-                                .addComponent(jRadioButton1)
+                                .addComponent(opcAdmin)
                                 .addGap(21, 21, 21)
-                                .addComponent(jRadioButton2))))
+                                .addComponent(opcUsuario))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(jButton1)))
+                        .addComponent(btnIngresar)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -110,18 +119,18 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(opcAdmin)
+                    .addComponent(opcUsuario))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,6 +146,47 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+        ClsUsuario usuarioDao = new ClsUsuario();
+        usuario usu = new usuario();
+        usu.setUsuario(txtUsuario.getText());
+        usu.setPassWord(txtPass.getText());
+        int tipo = 0;
+        if (!usu.getUsuario().isEmpty() && !usu.getPassWord().isEmpty()) {
+            if (opcUsuario.isSelected()) {
+                tipo = 2;
+            } else if (opcAdmin.isSelected()) {
+                tipo = 1;
+            }
+            if (tipo != 0) {
+                usu.setTipoUsuario(tipo);
+                usuario user= new usuario();
+                user=usuarioDao.Login(usu);
+                if(user.getUsuario()!=null){
+                    JOptionPane.showMessageDialog(null, "Welcome " + user.getUsuario());
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se encontró el usuario");
+                }
+                
+                if (user.getTipoUsuario() == 1) {
+                    //abrimos el form de Oscar
+                    
+                } else if(user.getTipoUsuario() == 2){
+                    //abrimos el form de Mauricio
+                    usua=user;
+                    frmCargos formCargos = new frmCargos();
+                    formCargos.setVisible(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "llena los campos");
+            }
+        } else {
+
+            JOptionPane.showMessageDialog(null, "llena los campos");
+        }
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,14 +225,14 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Botones;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JRadioButton opcAdmin;
+    private javax.swing.JRadioButton opcUsuario;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
