@@ -169,15 +169,18 @@ public class Login extends javax.swing.JFrame {
                 }else{
                     JOptionPane.showMessageDialog(null, "No se encontró el usuario");
                 }
-                
+                usua=user;
                 if (user.getTipoUsuario() == 1) {
                     //abrimos el form de Oscar
-                    
+                    frmAbonos formAbonos = new frmAbonos();
+                    formAbonos.setVisible(true);
+                    this.hide();
                 } else if(user.getTipoUsuario() == 2){
                     //abrimos el form de Mauricio
-                    usua=user;
+                    
                     frmCargos formCargos = new frmCargos();
                     formCargos.setVisible(true);
+                    this.hide();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "llena los campos");

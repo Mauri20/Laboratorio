@@ -33,9 +33,9 @@ public class Clscuentasusuario {
             statement.setDate("pFecha", new java.sql.Date(transaccion.getFecha().getTime()));
             statement.execute();
             con.close();
-            JOptionPane.showMessageDialog(null, "Retiro realizado!" );
+            JOptionPane.showMessageDialog(null, "Transacción realizada!" );
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al Retirar" + e);
+            JOptionPane.showMessageDialog(null, "Error al realizar la Transacción" + e);
         }
     }
 
