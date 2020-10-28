@@ -22,6 +22,7 @@ public class Clscuentasusuario {
 
     Conexion cn = new Conexion();
     Connection con = cn.RetornoConexion();
+    
 
     public void agregarTransaccion(cuentasusuario transaccion) {
         try {
@@ -59,4 +60,16 @@ public class Clscuentasusuario {
 
         return listado;
     }
+    
+  public void insertaAbono(cuentasusuario cuentas){
+      try {
+          
+          CallableStatement st = con.prepareCall("SP_I_InsertarAbono(?,?,?); ");
+        
+   
+      } catch (Exception e) {
+      }
+      
+  
+  }
 }

@@ -5,10 +5,17 @@
  */
 package com.unab.edu.vistas;
 
+import com.unab.edu.DAO.ClsUsuario;
+import com.unab.edu.DAO.Clscuentasusuario;
+import com.unab.edu.Entidades.cuentasusuario;
+import com.unab.edu.Entidades.usuario;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.ToDoubleFunction;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,18 +26,41 @@ public class frmAbonos extends javax.swing.JFrame {
     /**
      * Creates new form frmAbonos
      */
+    usuario user;
+
     public frmAbonos() {
         initComponents();
-        Date date = new Date(); 
-        
-        Calendar Cal =  Calendar.getInstance();
+        Date date = new Date();
+        user = Login.usua;
+        txtBienvenido.setText("Bienvenido " + user.getUsuario());
+        Calendar Cal = Calendar.getInstance();
         jDateChooser1.setCalendar(Cal);
+        DisplayMember();
     }
     
-    String ValueMember [];
-    void DisplayMember(){
+    String ValueMember[];
+    int contador = 1;
+
+    void DisplayMember() {
         DefaultComboBoxModel cbdefault = new DefaultComboBoxModel();
-    
+        ClsUsuario usua = new ClsUsuario();
+        ArrayList<usuario> users = usua.TraerUsuarios();
+        ValueMember = new String[users.size() + 1];
+        
+        String filas[] = new String[5];
+        cbdefault.addElement("");
+        for (var iterarDatosusuario : users) {
+            
+            filas[0] = String.valueOf(iterarDatosusuario.getIdUsuario());
+            filas[1] = iterarDatosusuario.getUsuario();
+            ValueMember[contador] = filas[0];
+            cbdefault.addElement(filas[1]);
+            contador++;
+            
+        }
+        
+        CBusuario.setModel(cbdefault);
+        
     }
 
     /**
@@ -42,7 +72,7 @@ public class frmAbonos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        txtBienvenido = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCantidadAbono = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -52,7 +82,7 @@ public class frmAbonos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        txtBienvenido.setText("jLabel1");
 
         jLabel2.setFont(new java.awt.Font("Monospaced", 2, 12)); // NOI18N
         jLabel2.setText("Cantidad a abonar");
@@ -81,7 +111,7 @@ public class frmAbonos extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21))
@@ -101,7 +131,7 @@ public class frmAbonos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(txtBienvenido)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(jLabel2)
@@ -120,11 +150,22 @@ public class frmAbonos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Date fecha  = new Date();
-       fecha  = jDateChooser1.getDate();
-       
+        try {
+            Clscuentasusuario cuentausu = new Clscuentasusuario();
+            cuentasusuario cuentausuar = new cuentasusuario();
+            
+            cuentausuar.setIdUsuario(Integer.parseInt(ValueMember[CBusuario.getSelectedIndex()]));
+            cuentausuar.setSaldo(Double.parseDouble(txtCantidadAbono.getText()));
+            cuentausuar.setFecha(jDateChooser1.getDate());
+            cuentausuar.setTransaccion(1);
+            JOptionPane.showMessageDialog(null, cuentausuar.getIdUsuario()+" y "+cuentausuar.getSaldo()+" y "+cuentausuar.getFecha()+" y "+ cuentausuar.getTransaccion());
+            cuentausu.agregarTransaccion(cuentausuar);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "error de guardar datos");
+        }
         
-       
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -166,9 +207,9 @@ public class frmAbonos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBusuario;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel txtBienvenido;
     private javax.swing.JTextField txtCantidadAbono;
     // End of variables declaration//GEN-END:variables
 }
