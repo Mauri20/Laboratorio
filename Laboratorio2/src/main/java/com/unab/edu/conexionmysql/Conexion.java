@@ -13,23 +13,24 @@ import java.sql.DriverManager;
  * @author Stanly
  */
 public class Conexion {
-    
+
     private Connection conexionbd;
-    
-    public Conexion(){
+
+    public Conexion() {
         try {
-            conexionbd = DriverManager.getConnection("jdbc:mysql://localhost/appbanco","root","root");
+            conexionbd = DriverManager.getConnection("jdbc:mysql://localhost/appbanco?useTimezone=true&serverTimezone=UTC","root", "root");
+
+//            conexionbd = DriverManager.getConnection("jdbc:mysql://localhost/appbanco","root","root");
             System.out.println("conectado a la base de datos");
         } catch (Exception e) {
-            System.out.println("Error verifique la conexion de la base de datos"+e);
+            System.out.println("Error verifique la conexion de la base de datos" + e);
         }
-    
-    
+
     }
-    
-    public Connection RetornoConexion(){
+
+    public Connection RetornoConexion() {
         return conexionbd;
-    
+
     }
-    
+
 }

@@ -68,16 +68,19 @@ public class Login extends javax.swing.JFrame {
         opcAdmin.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         opcAdmin.setForeground(new java.awt.Color(255, 255, 255));
         opcAdmin.setText("Admin");
+        opcAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         opcUsuario.setBackground(new java.awt.Color(0, 102, 102));
         Botones.add(opcUsuario);
         opcUsuario.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         opcUsuario.setForeground(new java.awt.Color(255, 255, 255));
         opcUsuario.setText("Usuario");
+        opcUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnIngresar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/entrar_1.png"))); // NOI18N
         btnIngresar.setText("Ingresar");
+        btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);

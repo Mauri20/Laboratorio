@@ -38,7 +38,7 @@ public class frmAbonos extends javax.swing.JFrame {
         jDateChooser1.setCalendar(Cal);
         DisplayMember();
     }
-    
+
     String ValueMember[];
     int contador = 1;
 
@@ -47,21 +47,21 @@ public class frmAbonos extends javax.swing.JFrame {
         ClsUsuario usua = new ClsUsuario();
         ArrayList<usuario> users = usua.TraerUsuarios();
         ValueMember = new String[users.size() + 1];
-        
+
         String filas[] = new String[5];
         cbdefault.addElement("");
         for (var iterarDatosusuario : users) {
-            
+
             filas[0] = String.valueOf(iterarDatosusuario.getIdUsuario());
             filas[1] = iterarDatosusuario.getUsuario();
             ValueMember[contador] = filas[0];
             cbdefault.addElement(filas[1]);
             contador++;
-            
+
         }
-        
+
         CBusuario.setModel(cbdefault);
-        
+
     }
 
     /**
@@ -81,8 +81,11 @@ public class frmAbonos extends javax.swing.JFrame {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         CBusuario = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
         txtBienvenido.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         txtBienvenido.setText("jLabel1");
@@ -94,6 +97,7 @@ public class frmAbonos extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton1.setText("Enviar abono");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -105,6 +109,20 @@ public class frmAbonos extends javax.swing.JFrame {
 
         CBusuario.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         CBusuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBusuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CBusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBusuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logout.png"))); // NOI18N
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,14 +131,18 @@ public class frmAbonos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtCantidadAbono, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))
-                    .addComponent(txtBienvenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(65, 65, 65)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtCantidadAbono, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(71, 71, 71))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtBienvenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(CBusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,21 +152,25 @@ public class frmAbonos extends javax.swing.JFrame {
                 .addGap(146, 146, 146)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtBienvenido)
-                        .addGap(25, 25, 25)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCantidadAbono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(CBusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -177,20 +203,31 @@ public class frmAbonos extends javax.swing.JFrame {
         try {
             Clscuentasusuario cuentausu = new Clscuentasusuario();
             cuentasusuario cuentausuar = new cuentasusuario();
-            
+
             cuentausuar.setIdUsuario(Integer.parseInt(ValueMember[CBusuario.getSelectedIndex()]));
             cuentausuar.setSaldo(Double.parseDouble(txtCantidadAbono.getText()));
             cuentausuar.setFecha(jDateChooser1.getDate());
             cuentausuar.setTransaccion(1);
 //            JOptionPane.showMessageDialog(null, cuentausuar.getIdUsuario()+" y "+cuentausuar.getSaldo()+" y "+cuentausuar.getFecha()+" y "+ cuentausuar.getTransaccion());
             cuentausu.agregarTransaccion(cuentausuar);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "error de guardar datos");
         }
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        Login log = new Login();
+        log.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void CBusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBusuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBusuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,6 +268,7 @@ public class frmAbonos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBusuario;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
