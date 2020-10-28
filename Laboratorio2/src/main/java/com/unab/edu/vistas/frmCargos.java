@@ -87,6 +87,7 @@ public class frmCargos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sacar Dinero");
 
         txtRetiro.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -101,12 +102,15 @@ public class frmCargos extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Saldo Disponible:");
 
         txtSaldo.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        txtSaldo.setForeground(new java.awt.Color(255, 255, 255));
         txtSaldo.setText("00.00");
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Sacar Dinero");
 
         tbTransacciones.setModel(new javax.swing.table.DefaultTableModel(
